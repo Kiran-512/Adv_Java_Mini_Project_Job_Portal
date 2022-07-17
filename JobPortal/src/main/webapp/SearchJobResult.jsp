@@ -33,72 +33,87 @@ body {
 	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
 		'Lucida Sans', Arial, sans-serif;
 }
-
-
 </style>
 </head>
 <body>
+	<%
+	
+	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");;
 
- <div class="header_emp">
-        <div class="navbar_emp container-fluid">
-            <div class="navigation_bar_emp">
-                <ul class="row ">
-                   <% User user = (User) session.getAttribute("currentUser");  %>
+	response.setHeader("Pragma", "no-cache");
+	
+	System.out.println("Inside this emphome");
+	if(session.getAttribute("currentUser") == null){
+		System.out.println("Inside if condition");
+		response.sendRedirect("login.html");
+		return;
+	}
+	User user = (User) session.getAttribute("currentUser");
+	System.out.println(user);
+
+	
+%>
+	<div class="header_emp">
+		<div class="navbar_emp container-fluid">
+			<div class="navigation_bar_emp">
+				<ul class="row ">
+
 
 					<li style="font-size: 20px">Welcome <%= user.getFname().toUpperCase()%></li>
-                </ul>
-                <div class="nav_menu_emp">
-                    <a href="emphome.jsp" class="btn btn-success">Home</a>
-                    <a href="searchjob.jsp" class="btn btn-success">Search job</a>
-                    <a href="" class="btn btn-info">Applied Jobs</a>
-                    <a href="logoutUser" class="btn btn-danger">Log Out</a>
-                </div>
-            </div>
-        </div>
-    </div>
+				</ul>
+				<div class="nav_menu_emp">
+					<a href="emphome.jsp" class="btn btn-success">Home</a> <a
+						href="searchjob.jsp" class="btn btn-success">Search job</a> <a
+						href="" class="btn btn-info">Applied Jobs</a> <a href="logoutUser"
+						class="btn btn-danger">Log Out</a>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<!-- =========== Searched Result  ================== -->
-	
+
 	<h3 class="Searchheading">Available Jobs in Searched Skills</h3>
 	<%
 	List<JobOpening> jobOpenings = (List<JobOpening>) session.getAttribute("jobOpenings");
 
 	for (JobOpening jobOpening : jobOpenings) {
 	%>
-	<form action="applyForJob">	
-	<div class="container jobdata">
-		<div class="row ">
-			<div class="col jobtitle">
-				<h2>
-					<%=jobOpening.getSkillsReq()%>
-				</h2>
+	<form action="applyForJob">
+		<div class="container jobdata">
+			<div class="row ">
+				<div class="col jobtitle">
+					<h2>
+						<%=jobOpening.getSkillsReq()%>
+					</h2>
+				</div>
+			</div>
+			<div class="row jobdata">
+				<div class="col-md-3 jobdetails">
+					<h4>
+						Job City is
+						<%=jobOpening.getJobCity()%>
+					</h4>
+				</div>
+				<div class="col-md-3 jobdetails">
+					<h4>
+						Work date is
+						<%=jobOpening.getWorkDate()%>
+					</h4>
+				</div>
+				<div class="col-md-3 jobdetails">
+					<h4>
+						Recruiter's Contact Number
+						<%=jobOpening.getMobileNumber()%>
+					</h4>
+				</div>
+				<input type="hidden" name="WorkId"
+					value="<%= jobOpening.getWorkId() %>">
+				<div class="col-md-3 jobdetails">
+					<input type="submit" class="btn btn-success" value="Apply" />
+				</div>
 			</div>
 		</div>
-		<div class="row jobdata">
-			<div class="col-md-3 jobdetails">
-				<h4>
-					Job City is
-					<%=jobOpening.getJobCity()%>
-				</h4>
-			</div>
-			<div class="col-md-3 jobdetails">
-				<h4>
-					Work date is
-					<%=jobOpening.getWorkDate()%>
-				</h4>
-			</div>
-			<div class="col-md-3 jobdetails">
-				<h4>
-					Recruiter's Contact Number
-					<%=jobOpening.getMobileNumber()%>
-				</h4>
-			</div>
-			<input type="hidden" name="WorkId" value="<%= jobOpening.getWorkId() %>" >
-			<div class="col-md-3 jobdetails">
-				<input type="submit" class="btn btn-success" value="Apply"/>
-			</div>
-		</div>
-	</div>
 	</form>
 	<%
 	}

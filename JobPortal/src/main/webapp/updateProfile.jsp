@@ -26,14 +26,15 @@ body {
 	background: rgb(40, 40, 40)
 }
 
-.container {
+.updated_profile {
 	min-height: 100vh;
-	margin-top:120px;
+	margin-top: 120px;
 }
 
 .col-md-4 {
 	border: 1px solid black;
 	margin: auto;
+	padding:20px;
 	background: #fff;
 	border-radius: 20px;
 }
@@ -48,18 +49,34 @@ input {
 </head>
 
 <body>
+	<%
+	
+	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");;
+
+	response.setHeader("Pragma", "no-cache");
+	
+	System.out.println("Inside this emphome");
+	if(session.getAttribute("currentUser") == null){
+		System.out.println("Inside if condition");
+		response.sendRedirect("login.html");
+		return;
+	}
+	User user = (User) session.getAttribute("currentUser");
+	System.out.println(user);
+
+	
+%>
 	<div class="header">
 		<div class="navbar_emp container-fluid">
 			<nav class="navigation_bar_emp">
 				<ul class="row ">
-					<%
-					User user = (User) session.getAttribute("currentUser");
-					%>
-
 					<li style="font-size: 20px">Welcome <%=user.getFname().toUpperCase()%></li>
 				</ul>
 				<div class="nav_menu_emp">
-					<a href="emphome.jsp" class="btn btn-success">Home</a> <a
+					<a href="emphome.jsp" class="btn btn-success">Home</a> 
+					<a
+						href="UserDetails.jsp" class="btn btn-primary">View Profile</a>
+						<a
 						href="searchjob.jsp" class="btn btn-success">Search job</a> <a
 						href="appliedjobs" class="btn btn-info">Applied Jobs</a> <a
 						href="logoutUser" class="btn btn-danger">Log Out</a>
@@ -68,7 +85,7 @@ input {
 		</div>
 	</div>
 
-	<div class="container">
+	<div class="container updated_profile">
 		<div class="row">
 			<div class="col-md-4 offset-md-4">
 				<form action="updateprofile">
@@ -107,5 +124,53 @@ input {
 			</div>
 		</div>
 	</div>
+
+	<footer id="footer">
+		<div class="container footer">
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<h3>About</h3>
+					<p>We aim to provide job for a day for every individual who is
+						looking out for an Job!</p>
+					<ul>
+						<li><a href="#facebook">facebook</a></li>
+						<li><a href="#Twitter">Twitter</a></li>
+						<li><a href="#Instagram">Instagram</a></li>
+						<li><a href="#Yotube">YouTube</a></li>
+					</ul>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<h5>Employers</h5>
+					<ul>
+						<li><a href="">Register</a></li>
+						<li><a href="">Post a Job</a></li>
+						<li><a href="">Advance Skill Search</a></li>
+						<li><a href="">Recruiting Service</a></li>
+						<li><a href="">Blog</a></li>
+					</ul>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<h5>Workers</h5>
+					<ul>
+						<li><a href="">Register</a></li>
+						<li><a href="">Post Your Skills</a></li>
+						<li><a href="">Job Search</a></li>
+						<li><a href="">Emploer Search</a></li>
+					</ul>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<h5>Have a question?</h5>
+					<ul>
+						<li><a href=""> 203, Ramsan Road, BKC Complex, Mumbai,
+								India</a></li>
+						<li><a href="">+91 02292 3929 210</a></li>
+						<li><a href="">info@jobportal.com</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+
 </body>
 </html>

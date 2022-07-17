@@ -19,13 +19,26 @@
 </head>
 
 <body>
+	<%
+	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+	;
+
+	response.setHeader("Pragma", "no-cache");
+
+	System.out.println("Inside this emphome");
+	if (session.getAttribute("currentUser") == null) {
+		System.out.println("Inside if condition");
+		response.sendRedirect("login.html");
+		return;
+	}
+	User user = (User) session.getAttribute("currentUser");
+	System.out.println(user);
+	%>
 	<div class="header_emp">
 		<div class="navbar_emp container-fluid">
 			<div class="navigation_bar_emp">
 				<ul class="row ">
-					<% User user = (User) session.getAttribute("currentUser");  %>
-
-					<li style="font-size: 20px">Welcome <%= user.getFname().toUpperCase()%></li>
+					<li style="font-size: 20px">Welcome <%=user.getFname().toUpperCase()%></li>
 				</ul>
 				<div class="nav_menu_emp">
 					<a href="emprhome.jsp" class="btn btn-success">Home</a> <a

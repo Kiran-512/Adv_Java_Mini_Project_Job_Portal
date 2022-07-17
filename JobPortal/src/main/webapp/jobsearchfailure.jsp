@@ -8,62 +8,69 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
-	integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/main.css">
-<title>job Portal - Post job</title>
-<style>
+<link rel="stylesheet" href="css/style.css" />
+<title>Job-Portal Home</title>
+<style type="text/css">
+#main_emp_home {
+	min-height: 100vh;
+}
+
+div+.emphome {
+	height: 20px;
+	margin-top: 100px;
+}
 </style>
 </head>
-
 <body>
-	<%
-	
-	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");;
 
-	response.setHeader("Pragma", "no-cache");
-	
+	<%
+	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");//http 1.1
+
+	response.setHeader("Pragma", "no-cache");//http 1.0
+
+	response.setHeader("Expires", "0");//proxies 
+
 	System.out.println("Inside this emphome");
-	if(session.getAttribute("currentUser") == null){
+	if (session.getAttribute("currentUser") == null) {
 		System.out.println("Inside if condition");
 		response.sendRedirect("login.html");
 		return;
 	}
 	User user = (User) session.getAttribute("currentUser");
 	System.out.println(user);
+	%>
 
-	
-%>
-	<div class="header_emp">
+	<div class="header">
 		<div class="navbar_emp container-fluid">
-			<div class="navigation_bar_emp">
+			<nav class="navigation_bar_emp">
 				<ul class="row ">
-					<li style="font-size: 20px">Welcome <%= user.getFname().toUpperCase()%></li>
+					<li style="font-size: 20px">Welcome <%=user.getFname().toUpperCase()%></li>
+
 				</ul>
 				<div class="nav_menu_emp">
-					<a href="emprhome.jsp" class="btn btn-success">Home</a> <a
-						href="postjobempr.jsp" class="btn btn-success">Post another
-						Job</a> <a href="postedjobs" class="btn btn-info">Posted Jobs</a> <a
-						href="logoutUser" class="btn btn-danger">Log Out</a>
+					<a href="searchjob.jsp" class="btn btn-success">Search job</a> <a
+						href="updateProfile.jsp" class="btn btn-secondary">Update
+						Profile</a> <a href="appliedjobs" class="btn btn-info">Applied
+						Jobs</a> <a href="logoutUser" class="btn btn-danger">Log Out</a>
 				</div>
-			</div>
+			</nav>
 		</div>
 	</div>
-	<!-- =================================================================== -->
-
-	<section id="main_empr_home">
-		<div class="container postsuccess ">
-			<div class="row">
-				<div class="col-md-4 offset-md-4">
-					<h2>Job deleted Successfully!</h2>
-					<p class="lead">You can re-apply from post new job section!</p>
+	<main>
+		<section id="main_emp_home">
+			<div class="container">
+				<div class="row emphome">
+					<h1 style="color: Red">No Result found with the given details!</h1>
 				</div>
 			</div>
-		</div>
-	</section>
+
+		</section>
+	</main>
 	<footer id="footer">
 		<div class="container footer">
 			<div class="row">
@@ -110,7 +117,5 @@
 		</div>
 	</footer>
 
-
 </body>
-
 </html>

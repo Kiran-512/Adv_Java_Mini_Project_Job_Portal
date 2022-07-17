@@ -1,22 +1,44 @@
+<%@page import="com.jobportal.model.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@page import="com.jobportal.model.User"%>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- CSS only -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/main.css">
-<title>job Portal - Post job</title>
+<title>Job Portal - Profile Details</title>
 <style>
+body {
+	background: rgb(40, 40, 40)
+}
+.updated_profile {
+	min-height: 100vh;
+	margin-top: 120px;
+}
+
+.col-md-5 {
+	border: 1px solid black;
+	margin: auto;
+	background: #fff;
+	border-radius: 20px;
+}
+
+input {
+	display: inline-block;
+	margin-bottom: 10px
+}
+
 </style>
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
@@ -37,33 +59,40 @@
 
 	
 %>
-	<div class="header_emp">
+	<div class="header">
 		<div class="navbar_emp container-fluid">
-			<div class="navigation_bar_emp">
+			<nav class="navigation_bar_emp">
 				<ul class="row ">
-					<li style="font-size: 20px">Welcome <%= user.getFname().toUpperCase()%></li>
+					<li style="font-size: 20px">Welcome <%=user.getFname().toUpperCase()%></li>
 				</ul>
 				<div class="nav_menu_emp">
-					<a href="emprhome.jsp" class="btn btn-success">Home</a> <a
-						href="postjobempr.jsp" class="btn btn-success">Post another
-						Job</a> <a href="postedjobs" class="btn btn-info">Posted Jobs</a> <a
+					<a href="emphome.jsp" class="btn btn-success">Home</a> 
+					<a
+						href="updateProfileempr.jsp" class="btn btn-primary">Update Profile</a>
+						<a
+						href="postjob.jsp" class="btn btn-success">Post a Job</a> <a
+						href="postedjobs" class="btn btn-info">Posted Job</a> <a
 						href="logoutUser" class="btn btn-danger">Log Out</a>
 				</div>
+			</nav>
+		</div>
+	</div>
+
+	<div class="container updated_profile">
+		<div class="row">
+			<div class="col-md-5 offset-md-3">
+				<h3> Name : <%= user.getFname() + " "+user.getLname()  %> </h3>
+				<h3> DateOfBirth : <%= user.getDateOfBirth() %> </h3>
+				<h3> Email ID: <%= user.getEmail()%> </h3>
+				<h3> Mobile Number : <%= user.getMobileNo() %> </h3>
+				<h3> Address </h3>
+				<h3> City  : <%= user.getCity() %> </h3>
+				<h3> District : <%= user.getDistrict() %> </h3>
+				<h3> State : <%= user.getState() %> </h3>																									
 			</div>
 		</div>
 	</div>
-	<!-- =================================================================== -->
 
-	<section id="main_empr_home">
-		<div class="container postsuccess ">
-			<div class="row">
-				<div class="col-md-4 offset-md-4">
-					<h2>Job deleted Successfully!</h2>
-					<p class="lead">You can re-apply from post new job section!</p>
-				</div>
-			</div>
-		</div>
-	</section>
 	<footer id="footer">
 		<div class="container footer">
 			<div class="row">
@@ -112,5 +141,4 @@
 
 
 </body>
-
 </html>

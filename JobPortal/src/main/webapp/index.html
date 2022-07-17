@@ -18,50 +18,47 @@
 	href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
 <link rel="stylesheet" href="css/style.css" />
 <script>
+	function check() {
+		let url = "";
 
-function check(){
-	let url ="";
+		let uname = getCookie('uname');
+		let upass = getCookie('upass');
+		if (uname != "" && upass != "") {
 
-	let uname = getCookie('uname');
-	let upass = getCookie('upass');
-	if(uname!="" && upass!=""){
-		
-		document.getElementById("searchjob").innerHTML = "<button type='submit' class='btn btn-success mt-5'>Search Job</button>";
-		//document.getElementById("send").click();
+			document.getElementById("searchjob").innerHTML = "<button type='submit' class='btn btn-success mt-5'>Search Job</button>";
+			//document.getElementById("send").click();
 
-		alert("search job triggered");
-	}
-	else{
-		alert("login job triggered");
+			alert("search job triggered");
+		} else {
+			alert("login job triggered");
 
-		url = "login.html";
-	document.getElementById("searchjob").innerHTML = "<a href ='"+ url + "' class='btn btn-success mt-5'>Search Job</a>";
-	}
-}
-
-function getCookie(cname) {
-	  let name = cname + "=";
-	  let decodedCookie = decodeURIComponent(document.cookie);
-	  
-	  console.log(decodedCookie , typeof decodedCookie); 
-	  
-	  let ca = decodedCookie.split(';');
-
-	  console.log(ca, typeof ca) // 
-
-	  for(let i = 0; i <ca.length; i++) {
-		  console.log(ca[i]);
-		  let c = ca[i];
-	    while (c.charAt(0) == ' ') {
-	      c = c.substring(1);
-	    }
-	    if (c.indexOf(name) == 0) {
-	      return c.substring(name.length, c.length);
-	    }
-	  }
-	  return "";
+			url = "login.html";
+			document.getElementById("searchjob").innerHTML = "<a href ='"+ url + "' class='btn btn-success mt-5'>Search Job</a>";
+		}
 	}
 
+	function getCookie(cname) {
+		let name = cname + "=";
+		let decodedCookie = decodeURIComponent(document.cookie);
+
+		console.log(decodedCookie, typeof decodedCookie);
+
+		let ca = decodedCookie.split(';');
+
+		console.log(ca, typeof ca) // 
+
+		for (let i = 0; i < ca.length; i++) {
+			console.log(ca[i]);
+			let c = ca[i];
+			while (c.charAt(0) == ' ') {
+				c = c.substring(1);
+			}
+			if (c.indexOf(name) == 0) {
+				return c.substring(name.length, c.length);
+			}
+		}
+		return "";
+	}
 </script>
 
 
@@ -100,7 +97,7 @@ function getCookie(cname) {
 				<div class="row">
 					<div class="col">
 						<div id="searchjob" class="col-2 m-auto">
-<!--  						<button type='submit' class='btn btn-success mt-5'>search</button> -->
+							<!--  						<button type='submit' class='btn btn-success mt-5'>search</button> -->
 						</div>
 					</div>
 				</div>

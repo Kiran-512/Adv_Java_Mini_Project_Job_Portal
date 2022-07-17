@@ -42,12 +42,14 @@ public class searchJobServlet extends HttpServlet {
 		List<JobOpening> searchResult = searchDao.fetchJob(Jobtitle, Date, Location);
 
 
-		for (JobOpening jobOpening : searchResult) {
-		System.out.println(jobOpening.getSkillsReq());
-		System.out.println(jobOpening.getJobCity());
-		System.out.println(jobOpening.getMobileNumber());
-		System.out.println(jobOpening.getWorkDate());
-		}		
+		/*
+		 * for (JobOpening jobOpening : searchResult) {
+		 * System.out.println(jobOpening.getSkillsReq());
+		 * System.out.println(jobOpening.getJobCity());
+		 * System.out.println(jobOpening.getMobileNumber());
+		 * System.out.println(jobOpening.getWorkDate()); }
+		 */
+		
 		HttpSession session = request.getSession();
 		
 		PrintWriter out = response.getWriter();
@@ -63,8 +65,9 @@ public class searchJobServlet extends HttpServlet {
 			 * out.write("<h1> Search Result Obtained</h1>"); out.write("jugaddddd");
 			 * System.out.println(searchResult);
 			 */
+			
 		} else {
-			out.write("<h1>data not found</h1>");
+			response.sendRedirect("jobsearchfailure.jsp");
 		}
 	}
 

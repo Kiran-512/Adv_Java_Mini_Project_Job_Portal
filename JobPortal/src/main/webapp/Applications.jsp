@@ -2,7 +2,7 @@
 <%@page import="java.util.List"%>
 <%@page import="com.jobportal.model.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 
@@ -20,55 +20,81 @@
 <title>Job-Portal</title>
 </head>
 
-<body style="background:rgb(40,40,40)">
+<body style="background: rgb(40, 40, 40)">
+	<%
+	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+	;
+
+	response.setHeader("Pragma", "no-cache");
+
+	System.out.println("Inside this emphome");
+	if (session.getAttribute("currentUser") == null) {
+		System.out.println("Inside if condition");
+		response.sendRedirect("login.html");
+		return;
+	}
+	User user = (User) session.getAttribute("currentUser");
+	System.out.println(user);
+	%>
 	<div class="header_emp">
 		<div class="navbar_emp container-fluid">
 			<div class="navigation_bar_emp">
 				<ul class="row ">
-					<% User user = (User) session.getAttribute("currentUser");  %>
-
-					<li style="font-size: 20px">Welcome <%= user.getFname().toUpperCase()%></li>
+					<li style="font-size: 20px">Welcome <%=user.getFname().toUpperCase()%></li>
 				</ul>
 				<div class="nav_menu_emp">
-					<a href="emprhome.jsp" class="btn btn-success">Home</a> 
-					<a
+					<a href="emprhome.jsp" class="btn btn-success">Home</a> <a
 						href="postjobempr.jsp" class="btn btn-info">Post another Jobs</a>
-					<a
-						href="postedjobs" class="btn btn-info">Posted Jobs</a> <a
+					<a href="postedjobs" class="btn btn-info">Posted Jobs</a> <a
 						href="logoutUser" class="btn btn-danger">Log Out</a>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<h3 class="Searchheading">Below are the applications received for the jobs</h3>
+	<h3 class="Searchheading">Below are the applications received for
+		the job </h3>
 	<%
 	List<User> applications = (List<User>) session.getAttribute("applications");
 
 	for (User applicant : applications) {
 	%>
-	<form action="applyForJob">	
-	<div class="container jobdata">
-		<div class="row ">
-			<div class="col jobtitle">
-				<h2>Applicant Name : 
-					<%=applicant.getFname() +" " +applicant.getLname()%>
-				</h2>
+	<form action="applyForJob">
+		<div class="container jobdata">
+			<div class="row ">
+				<div class="col jobtitle">
+					<h2>
+						Applicant Name :
+						<%=applicant.getFname() + " " + applicant.getLname()%>
+					</h2>
+				</div>
+			</div>
+			<div class="row jobdata">
+				<div class="col-md-3 jobdetails">
+					<h4>
+						Address :
+						<%=applicant.getCity() + " " + applicant.getState() %>
+					</h4>
+				</div>
+				<div class="col-md-3 jobdetails">
+					<h4>
+						Mobile Number
+						<%=applicant.getMobileNo()%>
+					</h4>
+				</div>
+
+				<div class="col-md-3 jobdetails">
+					<h4>
+						Email ID
+						<%=applicant.getEmail()%>
+					</h4>
+				</div>
+				<div class="col-md-3 jobdetails">
+					<a href="" class="btn btn-success">Offer</a> <a href=""
+						class="btn btn-danger">Reject</a>
+				</div>
 			</div>
 		</div>
-		<div class="row jobdata">
-			<div class="col-md-3 jobdetails">
-				<h4>
-					email ID
-					<%=applicant.getEmail()%>
-				</h4>
-			</div>
-			<div class="col-md-3 jobdetails">
-				<a href="" class="btn btn-success" >Sign Contract</a>
-				<a  href="" class="btn btn-danger" >Cancel Application </a>
-			</div>
-		</div>
-	</div>
 	</form>
 	<%
 	}

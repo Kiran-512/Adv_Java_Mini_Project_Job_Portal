@@ -1,3 +1,4 @@
+<%@page import="com.jobportal.model.User"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="com.jobportal.model.JobOpening"%>
 <%@page import="java.util.List"%>
@@ -37,17 +38,32 @@ body {
 </style>
 </head>
 <body>
+	<%
+	
+	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");;
 
+	response.setHeader("Pragma", "no-cache");
+	
+	System.out.println("Inside this emphome");
+	if(session.getAttribute("currentUser") == null){
+		System.out.println("Inside if condition");
+		response.sendRedirect("login.html");
+		return;
+	}
+	User user = (User) session.getAttribute("currentUser");
+	System.out.println(user);
+
+	
+%>
 	<div class="header_emp">
 		<div class="navbar_emp container-fluid">
 			<div class="navigation_bar_emp">
 				<ul class="row ">
-					<li>Welcome ${UserName}</li>
+					<li>Welcome <%= user.getFname().toUpperCase() %></li>
 				</ul>
 				<div class="nav_menu_emp">
-					<a href="emphome.jsp" class="btn btn-success">Home</a> <a href=""
-						class="btn btn-secondary">Update Profile</a> <a href=""
-						class="btn btn-info">Applied Jobs</a> <a href=""
+					<a href="emphome.jsp" class="btn btn-success">Home</a> <a href="appliedjobs"
+						class="btn btn-info">Applied Jobs</a> <a href="logoutUser"
 						class="btn btn-danger">Log Out</a>
 				</div>
 			</div>
@@ -93,7 +109,8 @@ body {
 				<input type="hidden" name="WorkId"
 					value="<%=appliedJob.getWorkId()%>">
 				<div class="col-md-3 jobdetails">
-					<input type="submit" class="btn btn-success" value="Cancel Application" />
+					<input type="submit" class="btn btn-warning" value="Withdraw" />
+					<input type="submit" class="btn btn-success" value="Status" />
 				</div>
 			</div>
 		</div>

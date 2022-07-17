@@ -15,25 +15,40 @@
 	crossorigin="anonymous">
 <link rel="stylesheet" href="css/style.css" />
 <link rel="stylesheet" href="css/main.css" />
-<title>Job-Portal</title>
+<title>Job-Portal Home</title>
 
 
 </style>
 </head>
 <body>
+	<%
+	
+	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");;
+
+	response.setHeader("Pragma", "no-cache");
+	
+	System.out.println("Inside this emphome");
+	if(session.getAttribute("currentUser") == null){
+		System.out.println("Inside if condition");
+		response.sendRedirect("login.html");
+		return;
+	}
+	User user = (User) session.getAttribute("currentUser");
+	System.out.println(user);
+
+	
+%>
 	<div class="header_emp">
 		<div class="navbar_emp container-fluid">
 			<div class="navigation_bar_emp">
 				<ul class="row ">
-					<% User user = (User) session.getAttribute("currentUser");  %>
-
-					<li style="font-size:20px">Welcome  <%= user.getFname().toUpperCase()%></li>
+					<li style="font-size: 20px">Welcome <%= user.getFname().toUpperCase()%></li>
 				</ul>
 				<div class="nav_menu_emp">
 					<a href="postjobempr.jsp" class="btn btn-success">Post Job</a> <a
-						href="" class="btn btn-secondary">Update Profile</a> <a href="postedjobs"
-						class="btn btn-info">Posted Jobs</a> <a href="logoutUser"
-						class="btn btn-danger">Log Out</a>
+						href="updateProfileempr.jsp" class="btn btn-secondary">Update
+						Profile</a> <a href="postedjobs" class="btn btn-info">Posted Jobs</a>
+					<a href="logoutUser" class="btn btn-danger">Log Out</a>
 				</div>
 			</div>
 		</div>
